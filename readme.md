@@ -2,7 +2,7 @@
 
 A Firefox web extension https://addons.mozilla.org/en-US/firefox/addon/song-identifier/
 
-## Installation (from gitlab)
+## Installation
 
 `cd songid-react && npm install && npm run build`
 
