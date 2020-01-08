@@ -1,20 +1,18 @@
 # Song Identifier
 
-A firefox web extension https://addons.mozilla.org/en-US/firefox/addon/song-identifier/
+A Firefox web extension https://addons.mozilla.org/en-US/firefox/addon/song-identifier/
 
+## Installation (from gitlab)
 
-## installation
+`cd songid-react && npm install && npm run build`
 
-`npm install`
+Then get yourself keys (unless you're AMO).
 
-then get yourself keys
+### Keys
 
+I've hidden away my keys from gitlab... Get your own from www.acrcloud.com.
 
-#### the keys
-
-I've hidden away my keys from github... Get your own from www.acrcloud.com
-
-then make a secret.js file like
+Then make a `secret.js` file in the base folder (where LICENSE is), like
 
 ```javascript
 
@@ -27,25 +25,6 @@ var secret = {
 module.exports = secret
 ```
 
-#### browserify
+### Loading it up
 
-`node_modules/.bin/browserify background/inject.js > background/song-identifier.js `
-
-
-#### the css
-
-I manually moved the css file from node_modules/top-bar.css/top-bar.css to attention_bar/styles. You need not do a thing.
-
-#### Loading it up
-
-then go to about:debugging and load the manifest.json
-
-##### A kind of rundown...
-
-Press button -> create iframe with unique name for each playing media -> iframe sends message to bg -> store frameId
-
-Then record 5sec -> send blob to bg -> send blob-to-buffer to acrcloud -> send result to first iframe in queue -> display result
-
-On remove: hide element just in case -> send msg to bg to remove this iframe from list -> send msg to content to remove this iframe from dom
-
-
+Go to about:debugging and load the manifest.json.
