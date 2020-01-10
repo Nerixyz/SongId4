@@ -132,7 +132,11 @@ export default ({ blob }) => {
 				).then(r => JSON.parse(r));
 
 				if (!response.metadata) {
-					setStatus(`${response.status.msg}`);
+					if (response.status && response.status.code === 3003) {
+						setStatus('Default account limit exceeded for today. Check options page.')
+					} else {
+						setStatus(`${response.status.msg}`);
+					}
 					return;
 				}
 
