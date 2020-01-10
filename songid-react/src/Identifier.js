@@ -6,6 +6,25 @@ import crypto from 'crypto';
 import qs from 'querystring';
 import styled from 'styled-components';
 
+async function arrayBuffer(blob) {
+	if (blob.arrayBuffer) {
+		return blob.arrayBuffer()
+	} else {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader()
+
+			function onLoadEnd (e) {
+				reader.removeEventListener('loadend', onLoadEnd, false)
+				if (e.error) reject(e.error)
+				else resolve(Buffer.from(reader.result))
+			}
+
+			reader.addEventListener('loadend', onLoadEnd, false)
+			reader.readAsArrayBuffer(blob)
+		})
+	}
+}
+
 const gettingStoredSecrets = browser.storage.sync.get();
 
 function create_sign(data, secret_key) {
@@ -113,7 +132,11 @@ export default ({ blob }) => {
 				).then(r => JSON.parse(r));
 
 				if (!response.metadata) {
-					setStatus(`${response.status.msg}`);
+					if (response.status && response.status.code === 3003) {
+						setStatus('Default account limit exceeded for today. Check options page.')
+					} else {
+						setStatus(`${response.status.msg}`);
+					}
 					return;
 				}
 
