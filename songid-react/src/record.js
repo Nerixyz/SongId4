@@ -2,7 +2,6 @@ import wait from 'sleep-promise';
 
 const recLength = 5 * 1000;
 export default function record(media) {
-	console.log(media);
 	if (
 		media.readyState < HTMLMediaElement.HAVE_CURRENT_DATA
 		|| media.paused
@@ -51,8 +50,6 @@ export default function record(media) {
 	const recorded = wait(recLength).then(
 		() => recorder.state == "recording" && recorder.stop()
 	);
-
-	console.log(started, stopped, recorded)
 
 	return Promise.all([
 		started,

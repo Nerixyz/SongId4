@@ -6,8 +6,8 @@ import crypto from 'crypto';
 import qs from 'querystring';
 import styled from 'styled-components';
 
-async function arrayBuffer(blob) {
-	if (blob.arrayBuffer) {
+async function getArrayBuffer(blob) {
+	if ('function' === typeof blob.arrayBuffer) {
 		return blob.arrayBuffer()
 	} else {
 		return new Promise((resolve, reject) => {
@@ -16,7 +16,7 @@ async function arrayBuffer(blob) {
 			function onLoadEnd (e) {
 				reader.removeEventListener('loadend', onLoadEnd, false)
 				if (e.error) reject(e.error)
-				else resolve(Buffer.from(reader.result))
+				else resolve(reader.result)
 			}
 
 			reader.addEventListener('loadend', onLoadEnd, false)
@@ -118,7 +118,7 @@ export default ({ blob }) => {
 		(async () => {
 
 			try {
-				const arrayBuffer = await blob.arrayBuffer();
+				const arrayBuffer = await getArrayBuffer(blob);
 
 				const secrets = await gettingStoredSecrets;
 				setStatus('Fetching...')
