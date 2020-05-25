@@ -110,9 +110,14 @@ const Level = styled.div`
 	justify-content: space-between;
 `;
 
-export default ({ blob }) => {
+const LevelFlex = styled.span`
+	display: flex;
+`;
+
+export default ({ blob, children }) => {
 	const [status, setStatus] = useState('Extracting...');
 	const [showLinks, setShowLinks] = useState(false);
+	const [goAgain, setShowGoAgain] = useState(false);
 
 	useEffect(() => {
 		(async () => {
@@ -136,9 +141,11 @@ export default ({ blob }) => {
 						setStatus('Default account limit exceeded for today. Check options page.')
 					} else {
 						setStatus(`${response.status.msg}`);
+						setShowGoAgain(true);
 					}
 					return;
 				}
+				setShowGoAgain(false);
 
 				const song = response.metadata.music[0];
 				const artist = song.artists && song.artists[0] && song.artists[0].name;
@@ -154,6 +161,9 @@ export default ({ blob }) => {
 	return (
 		<Level>
 			<span>{status}</span>
+			<LevelFlex>
+				{goAgain ? children : null}
+			</LevelFlex>
 			{showLinks && (
 				<HorizontalList>
 					<Link href={YOUTUBE(status)}>YouTube</Link>

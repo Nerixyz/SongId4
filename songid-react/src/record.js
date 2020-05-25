@@ -1,7 +1,8 @@
 import wait from 'sleep-promise';
 
-const recLength = 5 * 1000;
-export default function record(media) {
+const REC_LENGTH = 5;
+export default function record(media, recLength = REC_LENGTH) {
+	recLength = recLength * 1000;
 	if (
 		media.readyState < HTMLMediaElement.HAVE_CURRENT_DATA
 		|| media.paused

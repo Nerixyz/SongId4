@@ -48,6 +48,7 @@ export default () => {
 		els.forEach(el => recs.push({
 			rec: record(el),
 			key: Math.random(),
+			goAgain: time => record(el, time),
 		}));
 		setRecordings(recs);
 	}, []);
@@ -56,7 +57,7 @@ export default () => {
 		recordings.map(rec => rec.rec && (
 			<TopBar key={rec.key}>
 				<TopBarItem>
-					<Recording rec={rec.rec} />
+					<Recording rec={rec.rec} goAgain={rec.goAgain} />
 				</TopBarItem>
 				<TopBarItemRight>
 					<Ad />
