@@ -44,7 +44,10 @@ export default () => {
 
 	useEffect(() => {
 		const recs = [];
-		const els = document.querySelectorAll('audio, video');
+		const els = Array.from(document.querySelectorAll('audio, video')).filter(media => !media.paused);
+		if (els.length === 0) {
+			alert('Song Identifier: No unpaused media elements detected.');
+		}
 		els.forEach(el => recs.push({
 			rec: record(el),
 			key: Math.random(),

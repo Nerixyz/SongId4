@@ -5,7 +5,7 @@
   "scripts": {
     "start": "parcel songid-react/index.html",
     "start:js": "parcel songid-react/src/index.js -o dist/index.js",
-    "build": "parcel build songid-react/src/index.js -o dist/index.js"
+    "build": "parcel build songid-react/src/index.js -o dist/index.js --no-minify"
   },
   "license": "MIT",
   "dependencies": {
