@@ -7,3 +7,6 @@ dist
 .idea
 .vscode
 .code
+.env
+artifacts
+.web-extension-id

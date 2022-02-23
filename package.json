@@ -5,6 +5,7 @@
   "scripts": {
     "build": "parcel build content/index.jsx --dist-dir dist",
     "extension": "web-ext build -n extension.zip",
+    "sign": "web-ext sign",
     "format": "prettier -w **/*.{js,jsx,ts,tsx,html} --loglevel warn"
   },
   "license": "MIT",
@@ -22,6 +23,7 @@
     "parcel": "^2.3.2",
     "@types/firefox-webext-browser": "^94.0.1",
     "web-ext": "^6.7.0",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "dotenv": "^16.0.0"
   }
 }
