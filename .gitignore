@@ -3,3 +3,7 @@ web-ext-artifacts
 secret.js
 .cache
 dist
+.parcel-cache
+.idea
+.vscode
+.code

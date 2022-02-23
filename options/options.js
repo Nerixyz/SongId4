@@ -1,31 +1,29 @@
-function save(e) {
-	// uhh whatever
-	let v = len.value
-	v = v > 15 ? 15 : v
-	// local vs sync probs no big deal in performance - hoping it is cached somewhere.
-	browser.storage.sync.set({
-		len: v,
-		host: host.value,
-		key: key.value,
-		secret: secret.value
-	})
+/** @type {HTMLInputElement} */
+const extendedRecordLength = document.getElementById('len');
+const host = document.getElementById('host');
+const key = document.getElementById('key');
+const secret = document.getElementById('secret');
+
+for (const el of [extendedRecordLength, host, key, secret]) {
+  el.addEventListener('change', save);
 }
 
-
-function restore() {
-	browser.storage.sync.get()
-	.then(values => {
-		len.value = values.len || ''
-		host.value = values.host || ''
-		key.value = values.key || ''
-		secret.value = values.secret || ''
-	})
+async function save() {
+  /** @type {StorageState} */
+  const state = {
+    extendedRecordLength: Math.min(extendedRecordLength.valueAsNumber, 15).toString(),
+    host: host.value,
+    key: key.value,
+    secret: secret.value,
+  };
+  await browser.storage.sync.set(state);
 }
 
-
-len.addEventListener('change', save)
-host.addEventListener('change', save)
-key.addEventListener('change', save)
-secret.addEventListener('change', save)
-document.addEventListener('DOMContentLoaded', restore)
-
+(async function restore() {
+  /** @type {StorageState} */
+  const values = await browser.storage.sync.get();
+  extendedRecordLength.value = values.extendedRecordLength || '';
+  host.value = values.host || '';
+  key.value = values.key || '';
+  secret.value = values.secret || '';
+})();
