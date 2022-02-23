@@ -6,7 +6,7 @@
     "build": "parcel build content/index.jsx --dist-dir dist",
     "extension": "web-ext build -n extension.zip",
     "sign": "web-ext sign",
-    "format": "prettier -w **/*.{js,jsx,ts,tsx,html} --loglevel warn"
+    "format": "prettier -w **/*.{js,jsx,ts,tsx,html,md} --loglevel warn"
   },
   "license": "MIT",
   "dependencies": {
