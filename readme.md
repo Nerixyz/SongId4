@@ -1,33 +1,19 @@
-# Song Identifier
+# Song Identifier 4
 
-A Firefox web extension https://addons.mozilla.org/en-US/firefox/addon/song-identifier/
+A for of the Firefox web extension https://addons.mozilla.org/en-US/firefox/addon/song-identifier/
+
+## Usage
+
+Setup is explained in the addon's options. Go to `about:addons` and select the addon.
 
 ## Installation
 
 You need node and NPM.
 
-`npm install`
-
-Then get yourself keys (unless you're AMO).
-
-`npm run build`
-
-### Keys
-
-I've hidden away my keys from gitlab... Get your own from www.acrcloud.com.
-
-Then make a `secret.js` file in the base folder (where LICENSE is), like
-
-```javascript
-var secret = {
-	host: "yourhost",
-	key: "yourkey",
-	secret: "yoursecret"
-}
-
-export default secret
-```
-
-### Loading it up
-
-Go to about:debugging and load the manifest.json.
+1. Install all dependencies and build the frontend:
+   `npm install && npm run build`
+2. If you want the extension as a .zip file to load it as a temporary extension in `about:debugging`, run `npm run extension`. The extension will be in `artifacts`.
+3. If you want to sign the extension:
+   1. Get your key and secret from [here](https://addons.mozilla.org/en-US/developers/addon/api/key/).
+   2. Create a `.env` file and define `WEB_EXT_API_KEY` (JWT issuer) and `WEB_EXT_API_SECRET` (JWT secret).
+   3. Run `npm run sign`. The final .xpi file will be in `artifacts`
